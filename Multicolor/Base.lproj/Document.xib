@@ -1,43 +1,380 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="Document" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="Document" customModule="Multicolor" customModuleProvider="target">
             <connections>
+                <outlet property="fifthCW" destination="SKj-o3-qXo" id="895-VE-sW3"/>
+                <outlet property="fifthInline" destination="Dzz-lf-y7z" id="3ZP-o4-89J"/>
+                <outlet property="fifthRecessed" destination="YPU-ap-kGe" id="gcM-5G-dgi"/>
+                <outlet property="fifthView" destination="qh3-OR-rLa" id="M8v-pi-4XR"/>
+                <outlet property="firstCW" destination="M7I-T6-GkA" id="ffB-7I-koh"/>
+                <outlet property="firstInline" destination="4Jb-54-syc" id="4PI-yr-Ahu"/>
+                <outlet property="firstRecessed" destination="teT-aI-dmo" id="QBw-KL-Oru"/>
+                <outlet property="firstView" destination="pl8-kg-kqC" id="5kR-b9-YGv"/>
+                <outlet property="fourView" destination="SuH-jy-RCR" id="b2m-Oe-mdO"/>
+                <outlet property="fourthCW" destination="1L0-1A-j3s" id="hVi-St-y9s"/>
+                <outlet property="fourthInline" destination="UQq-9Z-sSo" id="VcA-hw-lPh"/>
+                <outlet property="fourthRecessed" destination="J4r-I9-Xa3" id="ZNS-sg-mvs"/>
+                <outlet property="fourthView" destination="SuH-jy-RCR" id="zgq-ke-CS0"/>
+                <outlet property="mainWindow" destination="xOd-HO-29H" id="9Yb-yf-ycy"/>
+                <outlet property="secondCW" destination="kQ0-Vk-qvO" id="YOO-5p-6ni"/>
+                <outlet property="secondInline" destination="1RE-ck-ZIK" id="Epl-PZ-dT4"/>
+                <outlet property="secondRecessed" destination="cVA-zf-hYH" id="CjS-AA-Nm0"/>
+                <outlet property="secondView" destination="nYf-QL-qSQ" id="LJc-8Y-MOO"/>
+                <outlet property="splitView" destination="wuN-AO-cXU" id="Xvo-mS-9xz"/>
+                <outlet property="thirdCW" destination="85B-Ww-ib9" id="Ypy-0n-4Vu"/>
+                <outlet property="thirdInline" destination="D9L-ND-vDE" id="fEc-dY-wZ9"/>
+                <outlet property="thirdRecessed" destination="pON-lU-nI2" id="pu2-u1-IU2"/>
+                <outlet property="thirdView" destination="4Xx-zM-e1Z" id="7NI-CO-Zoj"/>
+                <outlet property="toggle" destination="jPf-ee-uj7" id="D8h-cX-MLI"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application" customClass="NSApplication"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
+        <customObject id="-3" userLabel="Application"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MulticolorWindow" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="133" y="235" width="507" height="413"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-            <value key="minSize" type="size" width="94" height="86"/>
+            <rect key="contentRect" x="133" y="235" width="484" height="360"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <value key="minSize" type="size" width="324" height="240"/>
             <view key="contentView" wantsLayer="YES" id="gIp-Ho-8D9">
-                <rect key="frame" x="0.0" y="0.0" width="507" height="413"/>
+                <rect key="frame" x="0.0" y="0.0" width="484" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="264" translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
-                        <rect key="frame" x="129" y="195" width="248" height="22"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Your document contents here" id="JDq-Ah-v2f">
-                            <font key="font" metaFont="system" size="18"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
+                    <splitView arrangesAllSubviews="NO" autosaveName="MulticolorSplitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuN-AO-cXU">
+                        <rect key="frame" x="0.0" y="0.0" width="484" height="360"/>
+                        <subviews>
+                            <customView id="pl8-kg-kqC">
+                                <rect key="frame" x="0.0" y="0.0" width="96" height="360"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <colorWell toolTip="Color Picker" translatesAutoresizingMaskIntoConstraints="NO" id="M7I-T6-GkA">
+                                        <rect key="frame" x="0.0" y="20" width="96" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="23" id="KRx-ya-Qco"/>
+                                        </constraints>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="setFirstColorWithSender:" target="-1" id="6UE-Zb-LYT"/>
+                                        </connections>
+                                    </colorWell>
+                                    <button toolTip="Luminance" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Jb-54-syc">
+                                        <rect key="frame" x="27" y="50" width="43" height="17"/>
+                                        <buttonCell key="cell" type="inline" title="Inline" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="tVX-ZJ-6h9">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystemBold"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="randomFirstWithSender:" target="-1" id="Vs3-RI-TFZ"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Copy to Clipboard" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="teT-aI-dmo">
+                                        <rect key="frame" x="12" y="170" width="73" height="19"/>
+                                        <buttonCell key="cell" type="recessed" title="Recessed" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CKc-Zw-Qac">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="copyToPasteboardWithSender:" target="-1" id="wWP-YS-b64"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="teT-aI-dmo" firstAttribute="centerY" secondItem="pl8-kg-kqC" secondAttribute="centerY" id="99D-8a-rK0"/>
+                                    <constraint firstAttribute="bottom" secondItem="M7I-T6-GkA" secondAttribute="bottom" constant="20" symbolic="YES" id="YgI-2a-2Og"/>
+                                    <constraint firstItem="M7I-T6-GkA" firstAttribute="top" secondItem="4Jb-54-syc" secondAttribute="bottom" constant="8" symbolic="YES" id="ady-up-N9o"/>
+                                    <constraint firstItem="teT-aI-dmo" firstAttribute="centerX" secondItem="4Jb-54-syc" secondAttribute="centerX" id="clb-xl-fog"/>
+                                    <constraint firstItem="4Jb-54-syc" firstAttribute="centerX" secondItem="M7I-T6-GkA" secondAttribute="centerX" id="ez2-eN-vt6"/>
+                                    <constraint firstItem="M7I-T6-GkA" firstAttribute="leading" secondItem="pl8-kg-kqC" secondAttribute="leading" id="hHy-Iq-bEL"/>
+                                    <constraint firstAttribute="trailing" secondItem="M7I-T6-GkA" secondAttribute="trailing" id="o7z-jQ-UhX"/>
+                                </constraints>
+                            </customView>
+                            <customView id="nYf-QL-qSQ">
+                                <rect key="frame" x="97" y="0.0" width="96" height="360"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <colorWell toolTip="Color Picker" translatesAutoresizingMaskIntoConstraints="NO" id="kQ0-Vk-qvO">
+                                        <rect key="frame" x="0.0" y="20" width="96" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="23" id="m0K-5u-5G6"/>
+                                        </constraints>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="setSecondColorWithSender:" target="-1" id="rt9-8a-2dI"/>
+                                        </connections>
+                                    </colorWell>
+                                    <button toolTip="Copy to Clipboard" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cVA-zf-hYH">
+                                        <rect key="frame" x="12" y="171" width="73" height="17"/>
+                                        <buttonCell key="cell" type="recessed" title="Recessed" bezelStyle="recessed" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mC4-iw-LoS">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="copyToPasteboardWithSender:" target="-1" id="0eL-RZ-XQD"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Luminance" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1RE-ck-ZIK">
+                                        <rect key="frame" x="27" y="50" width="43" height="17"/>
+                                        <buttonCell key="cell" type="inline" title="Inline" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="l8E-Bj-loh">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystemBold"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="randomSecondWithSender:" target="-1" id="kZ8-d4-VNk"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="kQ0-Vk-qvO" secondAttribute="trailing" id="8Rf-b5-34F"/>
+                                    <constraint firstAttribute="bottom" secondItem="kQ0-Vk-qvO" secondAttribute="bottom" constant="20" symbolic="YES" id="ADd-Jm-ydp"/>
+                                    <constraint firstItem="cVA-zf-hYH" firstAttribute="centerX" secondItem="kQ0-Vk-qvO" secondAttribute="centerX" id="AOH-Au-ogG"/>
+                                    <constraint firstItem="kQ0-Vk-qvO" firstAttribute="top" secondItem="1RE-ck-ZIK" secondAttribute="bottom" constant="8" symbolic="YES" id="GIo-9Q-a6c"/>
+                                    <constraint firstItem="cVA-zf-hYH" firstAttribute="centerY" secondItem="nYf-QL-qSQ" secondAttribute="centerY" id="Oid-sb-uWP"/>
+                                    <constraint firstItem="1RE-ck-ZIK" firstAttribute="centerX" secondItem="kQ0-Vk-qvO" secondAttribute="centerX" id="Qvi-ta-qWq"/>
+                                    <constraint firstItem="kQ0-Vk-qvO" firstAttribute="leading" secondItem="nYf-QL-qSQ" secondAttribute="leading" id="zCm-8v-RuG"/>
+                                </constraints>
+                            </customView>
+                            <customView id="4Xx-zM-e1Z">
+                                <rect key="frame" x="194" y="0.0" width="96" height="360"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <colorWell toolTip="Color Picker" translatesAutoresizingMaskIntoConstraints="NO" id="85B-Ww-ib9">
+                                        <rect key="frame" x="0.0" y="20" width="96" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="23" id="k4y-5A-cSZ"/>
+                                        </constraints>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="setThridColorWithSender:" target="-1" id="qIp-wS-N3C"/>
+                                        </connections>
+                                    </colorWell>
+                                    <button toolTip="Copy to Clipboard" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pON-lU-nI2">
+                                        <rect key="frame" x="12" y="171" width="73" height="17"/>
+                                        <buttonCell key="cell" type="recessed" title="Recessed" bezelStyle="recessed" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lwU-oP-dht">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="copyToPasteboardWithSender:" target="-1" id="y8U-KY-IYo"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Luminance" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D9L-ND-vDE">
+                                        <rect key="frame" x="27" y="50" width="43" height="17"/>
+                                        <buttonCell key="cell" type="inline" title="Inline" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="F0e-Za-0gz">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystemBold"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="randomThirdWithSender:" target="-1" id="LAO-MT-uUv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="85B-Ww-ib9" secondAttribute="bottom" constant="20" symbolic="YES" id="40B-h9-UU2"/>
+                                    <constraint firstItem="pON-lU-nI2" firstAttribute="centerY" secondItem="4Xx-zM-e1Z" secondAttribute="centerY" id="CBv-HN-g1A"/>
+                                    <constraint firstItem="pON-lU-nI2" firstAttribute="centerX" secondItem="85B-Ww-ib9" secondAttribute="centerX" id="EiI-vQ-Aqm"/>
+                                    <constraint firstItem="D9L-ND-vDE" firstAttribute="centerX" secondItem="85B-Ww-ib9" secondAttribute="centerX" id="QHD-Ak-mOU"/>
+                                    <constraint firstAttribute="trailing" secondItem="85B-Ww-ib9" secondAttribute="trailing" id="Vcv-K4-Wd5"/>
+                                    <constraint firstItem="85B-Ww-ib9" firstAttribute="leading" secondItem="4Xx-zM-e1Z" secondAttribute="leading" id="Ysc-so-ayf"/>
+                                    <constraint firstItem="85B-Ww-ib9" firstAttribute="top" secondItem="D9L-ND-vDE" secondAttribute="bottom" constant="8" symbolic="YES" id="t1u-ag-0QL"/>
+                                </constraints>
+                            </customView>
+                            <customView id="SuH-jy-RCR">
+                                <rect key="frame" x="291" y="0.0" width="96" height="360"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <colorWell toolTip="Color Picker" translatesAutoresizingMaskIntoConstraints="NO" id="1L0-1A-j3s">
+                                        <rect key="frame" x="0.0" y="20" width="96" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="23" id="9ho-Mw-xkf"/>
+                                        </constraints>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="setFourthColorWithSender:" target="-1" id="d4W-og-4Ft"/>
+                                        </connections>
+                                    </colorWell>
+                                    <button toolTip="Copy to Clipboard" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J4r-I9-Xa3">
+                                        <rect key="frame" x="12" y="171" width="73" height="17"/>
+                                        <buttonCell key="cell" type="recessed" title="Recessed" bezelStyle="recessed" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mWl-Qn-5wo">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="copyToPasteboardWithSender:" target="-1" id="EP2-ue-QbM"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Luminance" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UQq-9Z-sSo">
+                                        <rect key="frame" x="27" y="50" width="43" height="17"/>
+                                        <buttonCell key="cell" type="inline" title="Inline" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="C9s-9m-FWW">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystemBold"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="randomFourthWithSender:" target="-1" id="Vfi-SX-VY5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="1L0-1A-j3s" firstAttribute="top" secondItem="UQq-9Z-sSo" secondAttribute="bottom" constant="8" symbolic="YES" id="2bS-kA-gHD"/>
+                                    <constraint firstAttribute="bottom" secondItem="1L0-1A-j3s" secondAttribute="bottom" constant="20" symbolic="YES" id="453-dI-PnX"/>
+                                    <constraint firstItem="UQq-9Z-sSo" firstAttribute="centerX" secondItem="1L0-1A-j3s" secondAttribute="centerX" id="4oA-9F-SVj"/>
+                                    <constraint firstItem="J4r-I9-Xa3" firstAttribute="centerX" secondItem="1L0-1A-j3s" secondAttribute="centerX" id="8Mb-X9-kCb"/>
+                                    <constraint firstItem="1L0-1A-j3s" firstAttribute="leading" secondItem="SuH-jy-RCR" secondAttribute="leading" id="EOh-A0-oli"/>
+                                    <constraint firstAttribute="trailing" secondItem="1L0-1A-j3s" secondAttribute="trailing" id="XPD-hM-EBU"/>
+                                    <constraint firstItem="J4r-I9-Xa3" firstAttribute="centerY" secondItem="SuH-jy-RCR" secondAttribute="centerY" id="zon-ut-WWF"/>
+                                </constraints>
+                            </customView>
+                            <customView id="qh3-OR-rLa">
+                                <rect key="frame" x="388" y="0.0" width="96" height="360"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <colorWell toolTip="Color Picker" translatesAutoresizingMaskIntoConstraints="NO" id="SKj-o3-qXo">
+                                        <rect key="frame" x="0.0" y="20" width="96" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="23" id="h8a-hP-fMc"/>
+                                        </constraints>
+                                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="setFifthColorWithSender:" target="-1" id="2Vh-Dp-m5o"/>
+                                        </connections>
+                                    </colorWell>
+                                    <button toolTip="Copy to Clipboard" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YPU-ap-kGe">
+                                        <rect key="frame" x="12" y="171" width="73" height="17"/>
+                                        <buttonCell key="cell" type="recessed" title="Recessed" bezelStyle="recessed" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EOi-zU-FmM">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="copyToPasteboardWithSender:" target="-1" id="gFq-aW-d2w"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Luminance" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dzz-lf-y7z">
+                                        <rect key="frame" x="27" y="50" width="43" height="17"/>
+                                        <buttonCell key="cell" type="inline" title="Inline" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="XQo-z0-Ijh">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystemBold"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="randomFifthWithSender:" target="-1" id="uxx-bz-CG7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="SKj-o3-qXo" firstAttribute="top" secondItem="Dzz-lf-y7z" secondAttribute="bottom" constant="8" symbolic="YES" id="Uv8-Ho-K1T"/>
+                                    <constraint firstItem="Dzz-lf-y7z" firstAttribute="centerX" secondItem="SKj-o3-qXo" secondAttribute="centerX" id="Yeo-NN-c8D"/>
+                                    <constraint firstAttribute="bottom" secondItem="SKj-o3-qXo" secondAttribute="bottom" constant="20" symbolic="YES" id="ZJN-3K-P8e"/>
+                                    <constraint firstItem="SKj-o3-qXo" firstAttribute="leading" secondItem="qh3-OR-rLa" secondAttribute="leading" id="b2c-M9-5IM"/>
+                                    <constraint firstItem="YPU-ap-kGe" firstAttribute="centerX" secondItem="SKj-o3-qXo" secondAttribute="centerX" id="f0h-Xk-6Sy"/>
+                                    <constraint firstAttribute="trailing" secondItem="SKj-o3-qXo" secondAttribute="trailing" id="gYq-d3-CgT"/>
+                                    <constraint firstItem="YPU-ap-kGe" firstAttribute="centerY" secondItem="qh3-OR-rLa" secondAttribute="centerY" id="xbc-1h-k9O"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                            <real value="250"/>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                    </splitView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="OG3-1c-Sd0"/>
-                    <constraint firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="s6i-b7-llN"/>
+                    <constraint firstAttribute="trailing" secondItem="wuN-AO-cXU" secondAttribute="trailing" id="cWw-l8-JLl"/>
+                    <constraint firstItem="wuN-AO-cXU" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" id="iOw-Hx-YsZ"/>
+                    <constraint firstItem="wuN-AO-cXU" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" id="kcw-qO-ws3"/>
+                    <constraint firstAttribute="bottom" secondItem="wuN-AO-cXU" secondAttribute="bottom" id="zpV-nR-QxN"/>
                 </constraints>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="4EC5CF5E-D4D4-41C5-9EE6-8C49987B3B6F" displayMode="iconOnly" sizeMode="small" id="9lk-Df-0f1">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="AE601775-6EC0-445B-9B05-837BFBEDB8F0" label="New" paletteLabel="New" toolTip="New Scheme" image="NSAddTemplate" id="8je-pB-EBU">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
+                        <button key="view" id="spT-Cn-Q4o">
+                            <rect key="frame" x="5" y="14" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" inset="2" id="lg1-bb-Dwb">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="newDocument:" target="-1" id="ziZ-QV-iiE"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="41D400A9-063B-4867-818B-E2D51F8B0883" label="Random" paletteLabel="Random" toolTip="Random Colors" image="NSFlowViewTemplate" id="0H3-Vz-8EI">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
+                        <button key="view" id="utF-hE-cKa">
+                            <rect key="frame" x="14" y="14" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSFlowViewTemplate" imagePosition="only" alignment="center" inset="2" id="5rA-yI-6hq">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="randomColorsWithSender:" target="-1" id="5CI-Wo-ixn"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="7D4F9B90-BD2D-404F-848E-17651AA79026" label="Split" paletteLabel="Split" toolTip="Initial Split" image="NSColumnViewTemplate" id="iUn-A5-ajP">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
+                        <button key="view" id="Mj9-ml-xnH">
+                            <rect key="frame" x="5" y="14" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSColumnViewTemplate" imagePosition="only" alignment="center" inset="2" id="zDW-51-dYR">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="resetSplitViewWithSender:" target="-1" id="uzC-Uf-5HX"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="0E8E147C-3E51-4BEF-8BB5-349EB3011788" label="Toggle" paletteLabel="Toggle" toolTip="Toggle Info" image="NSIconViewTemplate" id="jPf-ee-uj7">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
+                        <button key="view" id="j0k-Jy-54n">
+                            <rect key="frame" x="11" y="14" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSIconViewTemplate" imagePosition="only" alignment="center" inset="2" id="vsd-ex-ui3">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="toggleFromToolbarWithSender:" target="-1" id="Jfc-Lj-J2N"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="v30-Fe-bbP"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Sls-nu-ELU"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="Sls-nu-ELU"/>
+                    <toolbarItem reference="8je-pB-EBU"/>
+                    <toolbarItem reference="0H3-Vz-8EI"/>
+                    <toolbarItem reference="iUn-A5-ajP"/>
+                    <toolbarItem reference="jPf-ee-uj7"/>
+                </defaultToolbarItems>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
+            <point key="canvasLocation" x="163.5" y="161"/>
         </window>
     </objects>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSColumnViewTemplate" width="16" height="10"/>
+        <image name="NSFlowViewTemplate" width="18" height="10"/>
+        <image name="NSIconViewTemplate" width="10" height="10"/>
+    </resources>
 </document>
