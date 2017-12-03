@@ -38,7 +38,7 @@ class Document: NSDocument {
 
     @IBOutlet weak var toggle: NSToolbarItem!
 
-    func getLuminance(color: NSColor) -> CGFloat {
+    func getLuminance(color: NSColor) -> Int {
         let red = color.redComponent
         let green = color.greenComponent
         let blue = color.blueComponent
@@ -60,27 +60,27 @@ class Document: NSDocument {
         } else {
             B = pow((blue + 0.055)/1.055, 2.4)
         }
-        return 0.2126 * R + 0.7152 * G + 0.0722 * B
+        let lum = 0.2126 * R + 0.7152 * G + 0.0722 * B
+        return Int(round(lum * 100))
     }
 
-    func totalLuminance() -> CGFloat {
+    func averageLuminance() -> Int {
         let firstLum = getLuminance(color: firstCW.color)
         let secondLum = getLuminance(color: secondCW.color)
         let thirdLum = getLuminance(color: thirdCW.color)
         let fourthLum = getLuminance(color: fourthCW.color)
         let fifthLum = getLuminance(color: fifthCW.color)
-        return round((firstLum + secondLum + thirdLum + fourthLum + fifthLum)*10)/10
+        return (firstLum + secondLum + thirdLum + fourthLum + fifthLum)/5
     }
 
     func setColor(view: NSView, cw: NSColorWell, inline: NSCell, recessed: NSCell) {
         view.layer?.backgroundColor = cw.color.cgColor
-        let lum = round(getLuminance(color: cw.color)*10)/10
-        inline.title = lum.description
+        inline.title = getLuminance(color: cw.color).description + "%"
         let red = Int(round(cw.color.redComponent * 255))
         let green = Int(round(cw.color.greenComponent * 255))
         let blue = Int(round(cw.color.blueComponent * 255))
         recessed.title = NSString(format:"%02X%02X%02X", red, green, blue) as String!
-        view.window?.title = totalLuminance().description
+        view.window?.title = averageLuminance().description + "%"
     }
     
     func setButtonsState(state: Bool) {
@@ -190,7 +190,7 @@ class Document: NSDocument {
         mainWindow.styleMask.insert(.fullSizeContentView)
         randomColors(sender: windowController)
         randomColors(sender: windowController)
-        self.displayName = totalLuminance().description
+        self.displayName = averageLuminance().description + "%"
     }
 
     override init() {
