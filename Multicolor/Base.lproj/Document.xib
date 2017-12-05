@@ -36,7 +36,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="MulticolorWindow" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -339,11 +339,11 @@
                             <action selector="resetSplitViewWithSender:" target="-1" id="uzC-Uf-5HX"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="0E8E147C-3E51-4BEF-8BB5-349EB3011788" label="Toggle" paletteLabel="Toggle" toolTip="Toggle Info" image="NSIconViewTemplate" id="jPf-ee-uj7">
+                    <toolbarItem implicitItemIdentifier="0E8E147C-3E51-4BEF-8BB5-349EB3011788" label="Info" paletteLabel="Info" toolTip="Toggle Info" image="NSIconViewTemplate" id="jPf-ee-uj7">
                         <size key="minSize" width="22" height="22"/>
                         <size key="maxSize" width="22" height="22"/>
                         <button key="view" id="j0k-Jy-54n">
-                            <rect key="frame" x="11" y="14" width="22" height="22"/>
+                            <rect key="frame" x="3" y="14" width="22" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSIconViewTemplate" imagePosition="only" alignment="center" inset="2" id="vsd-ex-ui3">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
