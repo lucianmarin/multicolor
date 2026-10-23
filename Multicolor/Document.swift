@@ -405,6 +405,7 @@ class Document: NSWindowController, NSToolbarDelegate, NSWindowDelegate {
     @IBOutlet weak var fifthRecessed: NSButton!
 
     @IBOutlet weak var toggle: NSToolbarItem!
+    @IBOutlet weak var sortToolbarItem: NSToolbarItem!
 
     private var harmonyMode: HarmonyMode = {
         if UserDefaults.standard.object(forKey: Document.harmonyModeDefaultsKey) != nil,
@@ -534,6 +535,19 @@ class Document: NSWindowController, NSToolbarDelegate, NSWindowDelegate {
             }
         }
         harmonyPopUpButton?.selectItem(withTag: harmonyMode.rawValue)
+        updateSortToolbarIcon()
+    }
+
+    private func updateSortToolbarIcon() {
+        let existing = currentColors()
+        let ascending = existing.sorted { relativeLuminanceValue(color: $0) < relativeLuminanceValue(color: $1) }
+        let isAscending = zip(existing, ascending).allSatisfy {
+            hexString(for: $0) == hexString(for: $1)
+        }
+        let imageName = isAscending ? "NSTouchBarRotateLeftTemplate" : "NSTouchBarRotateRightTemplate"
+        let img = NSImage(named: NSImage.Name(rawValue: imageName))
+        sortToolbarItem?.image = img
+        (sortToolbarItem?.view as? NSButton)?.image = img
     }
 
     func currentColors() -> [NSColor] {
@@ -807,7 +821,7 @@ class Document: NSWindowController, NSToolbarDelegate, NSWindowDelegate {
         applyColors(updated)
     }
 
-    @objc func sortSchemeByLuminance(_ sender: AnyObject) {
+    @IBAction @objc func sortSchemeByLuminance(_ sender: AnyObject) {
         let existing = currentColors()
         let ascending = existing.sorted { relativeLuminanceValue(color: $0) < relativeLuminanceValue(color: $1) }
         let isAlreadyAscending = zip(existing, ascending).allSatisfy {
@@ -817,12 +831,12 @@ class Document: NSWindowController, NSToolbarDelegate, NSWindowDelegate {
         applyColors(sorted)
     }
 
-    @objc func reverseSchemeOrder(_ sender: AnyObject) {
+    @IBAction @objc func reverseSchemeOrder(_ sender: AnyObject) {
         lockedPanels.reverse()
         applyColors(Array(currentColors().reversed()), newAnchor: 4 - anchorIndex)
     }
 
-    @objc func invertScheme(_ sender: AnyObject) {
+    @IBAction @objc func invertScheme(_ sender: AnyObject) {
         let existing = currentColors()
         let inverted = existing.enumerated().map { idx, color -> NSColor in
             if lockedPanels[idx] { return color }
@@ -910,23 +924,11 @@ class Document: NSWindowController, NSToolbarDelegate, NSWindowDelegate {
     }
 
     @IBAction func toggleFromMenu(sender: NSMenuItem) {
-        if firstRecessed.isHidden {
-            setButtonsState(state: false)
-            toggle.image = NSImage(named: NSImage.Name(rawValue: "NSIconViewTemplate"))
-        } else {
-            setButtonsState(state: true)
-            toggle.image = NSImage(named: NSImage.Name(rawValue: "NSListViewTemplate"))
-        }
+        setButtonsState(state: !firstRecessed.isHidden)
     }
 
     @IBAction func toggleFromToolbar(sender: NSToolbarItem) {
-        if firstRecessed.isHidden {
-            setButtonsState(state: false)
-            sender.image = NSImage(named: NSImage.Name(rawValue: "NSIconViewTemplate"))
-        } else {
-            setButtonsState(state: true)
-            sender.image = NSImage(named: NSImage.Name(rawValue: "NSListViewTemplate"))
-        }
+        setButtonsState(state: !firstRecessed.isHidden)
     }
     
     @IBAction func resetSplitView(sender: AnyObject) {
@@ -1059,6 +1061,7 @@ class Document: NSWindowController, NSToolbarDelegate, NSWindowDelegate {
             addAction("Sort by Luminance", #selector(sortSchemeByLuminance(_:)))
             addAction("Reverse Order", #selector(reverseSchemeOrder(_:)))
             addAction("Invert Scheme", #selector(invertScheme(_:)))
+            addAction("Random Scheme", #selector(randomColors(sender:)))
             addAction("Unlock All Panels", #selector(unlockAllPanels(_:)))
             menu.addItem(.separator())
             addAction("Copy Hex List", #selector(copySchemeHexList(_:)))

@@ -73,6 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         addItem("Sort by Luminance", #selector(Document.sortSchemeByLuminance(_:)), "l", [.command])
         addItem("Reverse Order", #selector(Document.reverseSchemeOrder(_:)), "r", [.command, .shift])
         addItem("Invert Scheme", #selector(Document.invertScheme(_:)), "i", [.command, .shift])
+        addItem("Random Scheme", #selector(Document.randomColors(sender:)), "", [])
         addItem("Unlock All Panels", #selector(Document.unlockAllPanels(_:)), "u", [.command, .option])
 
         schemeMenu.addItem(.separator())

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="25098" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25098"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,6 +25,7 @@
                 <outlet property="secondInline" destination="1RE-ck-ZIK" id="Epl-PZ-dT4"/>
                 <outlet property="secondRecessed" destination="cVA-zf-hYH" id="CjS-AA-Nm0"/>
                 <outlet property="secondView" destination="nYf-QL-qSQ" id="LJc-8Y-MOO"/>
+                <outlet property="sortToolbarItem" destination="sLm-7V-pQ1" id="sTi-8M-kL9"/>
                 <outlet property="splitView" destination="wuN-AO-cXU" id="Xvo-mS-9xz"/>
                 <outlet property="thirdCW" destination="85B-Ww-ib9" id="Ypy-0n-4Vu"/>
                 <outlet property="thirdInline" destination="D9L-ND-vDE" id="fEc-dY-wZ9"/>
@@ -40,11 +41,11 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="640" height="480"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="803"/>
             <value key="minSize" type="size" width="324" height="240"/>
             <view key="contentView" wantsLayer="YES" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <splitView arrangesAllSubviews="NO" autosaveName="MulticolorSplitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuN-AO-cXU">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
@@ -54,7 +55,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <colorWell toolTip="Color Picker" translatesAutoresizingMaskIntoConstraints="NO" id="M7I-T6-GkA">
-                                        <rect key="frame" x="0.0" y="20" width="96" height="23"/>
+                                        <rect key="frame" x="0.0" y="20" width="127" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="KRx-ya-Qco"/>
                                         </constraints>
@@ -64,7 +65,7 @@
                                         </connections>
                                     </colorWell>
                                     <button toolTip="Luminance" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Jb-54-syc">
-                                        <rect key="frame" x="27" y="50" width="43" height="17"/>
+                                        <rect key="frame" x="45" y="51" width="38" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Inline" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="tVX-ZJ-6h9">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystemBold"/>
@@ -74,7 +75,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Copy to Clipboard" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="teT-aI-dmo">
-                                        <rect key="frame" x="12" y="170" width="73" height="19"/>
+                                        <rect key="frame" x="22" y="228" width="83" height="24"/>
                                         <buttonCell key="cell" type="recessed" title="Recessed" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CKc-Zw-Qac">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="12"/>
@@ -99,7 +100,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <colorWell toolTip="Color Picker" translatesAutoresizingMaskIntoConstraints="NO" id="kQ0-Vk-qvO">
-                                        <rect key="frame" x="0.0" y="20" width="96" height="23"/>
+                                        <rect key="frame" x="0.0" y="20" width="127" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="m0K-5u-5G6"/>
                                         </constraints>
@@ -109,7 +110,7 @@
                                         </connections>
                                     </colorWell>
                                     <button toolTip="Copy to Clipboard" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cVA-zf-hYH">
-                                        <rect key="frame" x="12" y="171" width="73" height="17"/>
+                                        <rect key="frame" x="24" y="230" width="79" height="20"/>
                                         <buttonCell key="cell" type="recessed" title="Recessed" bezelStyle="recessed" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mC4-iw-LoS">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="12"/>
@@ -119,7 +120,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Luminance" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1RE-ck-ZIK">
-                                        <rect key="frame" x="27" y="50" width="43" height="17"/>
+                                        <rect key="frame" x="45" y="51" width="38" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Inline" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="l8E-Bj-loh">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystemBold"/>
@@ -144,7 +145,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <colorWell toolTip="Color Picker" translatesAutoresizingMaskIntoConstraints="NO" id="85B-Ww-ib9">
-                                        <rect key="frame" x="0.0" y="20" width="96" height="23"/>
+                                        <rect key="frame" x="0.0" y="20" width="128" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="k4y-5A-cSZ"/>
                                         </constraints>
@@ -154,7 +155,7 @@
                                         </connections>
                                     </colorWell>
                                     <button toolTip="Copy to Clipboard" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pON-lU-nI2">
-                                        <rect key="frame" x="12" y="171" width="73" height="17"/>
+                                        <rect key="frame" x="25" y="230" width="78" height="20"/>
                                         <buttonCell key="cell" type="recessed" title="Recessed" bezelStyle="recessed" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lwU-oP-dht">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="12"/>
@@ -164,7 +165,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Luminance" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D9L-ND-vDE">
-                                        <rect key="frame" x="27" y="50" width="43" height="17"/>
+                                        <rect key="frame" x="45" y="51" width="38" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Inline" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="F0e-Za-0gz">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystemBold"/>
@@ -189,7 +190,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <colorWell toolTip="Color Picker" translatesAutoresizingMaskIntoConstraints="NO" id="1L0-1A-j3s">
-                                        <rect key="frame" x="0.0" y="20" width="96" height="23"/>
+                                        <rect key="frame" x="0.0" y="20" width="127" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="9ho-Mw-xkf"/>
                                         </constraints>
@@ -199,7 +200,7 @@
                                         </connections>
                                     </colorWell>
                                     <button toolTip="Copy to Clipboard" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J4r-I9-Xa3">
-                                        <rect key="frame" x="12" y="171" width="73" height="17"/>
+                                        <rect key="frame" x="24" y="230" width="79" height="20"/>
                                         <buttonCell key="cell" type="recessed" title="Recessed" bezelStyle="recessed" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mWl-Qn-5wo">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="12"/>
@@ -209,7 +210,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Luminance" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UQq-9Z-sSo">
-                                        <rect key="frame" x="27" y="50" width="43" height="17"/>
+                                        <rect key="frame" x="45" y="51" width="38" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Inline" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="C9s-9m-FWW">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystemBold"/>
@@ -234,7 +235,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <colorWell toolTip="Color Picker" translatesAutoresizingMaskIntoConstraints="NO" id="SKj-o3-qXo">
-                                        <rect key="frame" x="0.0" y="20" width="96" height="23"/>
+                                        <rect key="frame" x="0.0" y="20" width="127" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="h8a-hP-fMc"/>
                                         </constraints>
@@ -244,7 +245,7 @@
                                         </connections>
                                     </colorWell>
                                     <button toolTip="Copy to Clipboard" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YPU-ap-kGe">
-                                        <rect key="frame" x="12" y="171" width="73" height="17"/>
+                                        <rect key="frame" x="24" y="230" width="79" height="20"/>
                                         <buttonCell key="cell" type="recessed" title="Recessed" bezelStyle="recessed" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EOi-zU-FmM">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="12"/>
@@ -254,7 +255,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Luminance" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dzz-lf-y7z">
-                                        <rect key="frame" x="27" y="50" width="43" height="17"/>
+                                        <rect key="frame" x="45" y="51" width="38" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Inline" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="XQo-z0-Ijh">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystemBold"/>
@@ -291,15 +292,60 @@
                     <constraint firstAttribute="bottom" secondItem="wuN-AO-cXU" secondAttribute="bottom" id="zpV-nR-QxN"/>
                 </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="4EC5CF5E-D4D4-41C5-9EE6-8C49987B3B6F" displayMode="iconOnly" sizeMode="small" id="9lk-Df-0f1">
+            <toolbar key="toolbar" implicitIdentifier="4EC5CF5E-D4D4-41C5-9EE6-8C49987B3B6F" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="9lk-Df-0f1">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="41D400A9-063B-4867-818B-E2D51F8B0883" label="Random Scheme" paletteLabel="Random Scheme" toolTip="Random Scheme" image="NSFlowViewTemplate" id="0H3-Vz-8EI">
+                    <toolbarItem implicitItemIdentifier="3B917E40-7151-4F3C-9E3A-6A5E11B09F01" label="Sort by Luminance" paletteLabel="Sort by Luminance" toolTip="Sort by Luminance" image="NSTouchBarRotateRightTemplate" id="sLm-7V-pQ1">
                         <size key="minSize" width="22" height="22"/>
                         <size key="maxSize" width="22" height="22"/>
-                        <button key="view" id="utF-hE-cKa">
-                            <rect key="frame" x="14" y="14" width="22" height="22"/>
+                        <button key="view" id="bSL-9K-mN2">
+                            <rect key="frame" x="42" y="14" width="22" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSFlowViewTemplate" imagePosition="only" alignment="center" inset="2" id="5rA-yI-6hq">
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTouchBarRotateRightTemplate" imagePosition="only" alignment="center" inset="2" id="cSL-4D-wE3">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="sortSchemeByLuminance:" target="-1" id="aSL-1R-tY4"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="8C429F51-8262-4A4D-AF4B-7B6F22C1AF12" label="Reverse Order" paletteLabel="Reverse Order" toolTip="Reverse Order" image="NSExitFullScreenTemplate" id="rOr-8W-qR2">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22.5" height="22"/>
+                        <button key="view" id="bRO-0L-nO3">
+                            <rect key="frame" x="30" y="14" width="22.5" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSExitFullScreenTemplate" imagePosition="only" alignment="center" inset="2" id="cRO-5E-xF4">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="reverseSchemeOrder:" target="-1" id="aRO-2S-uZ5"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="9D530A62-9373-4B5E-B05C-8C7033D2B023" label="Invert Scheme" paletteLabel="Invert Scheme" toolTip="Invert Scheme" image="NSQuickLookTemplate" id="iSc-9X-rS3">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22.5" height="22"/>
+                        <button key="view" id="bIS-1M-oP4">
+                            <rect key="frame" x="30" y="14" width="22.5" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSQuickLookTemplate" imagePosition="only" alignment="center" inset="2" id="cIS-6F-yG5">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="invertScheme:" target="-1" id="aIS-3T-vA6"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="41D400A9-063B-4867-818B-E2D51F8B0883" label="Random Scheme" paletteLabel="Random Scheme" toolTip="Random Scheme" image="NSRefreshTemplate" id="0H3-Vz-8EI">
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22.5" height="22"/>
+                        <button key="view" id="utF-hE-cKa">
+                            <rect key="frame" x="37" y="14" width="22.5" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshTemplate" imagePosition="only" alignment="center" inset="2" id="5rA-yI-6hq">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -312,7 +358,7 @@
                         <size key="minSize" width="22" height="22"/>
                         <size key="maxSize" width="22" height="22"/>
                         <button key="view" id="Mj9-ml-xnH">
-                            <rect key="frame" x="5" y="14" width="22" height="22"/>
+                            <rect key="frame" x="21" y="14" width="22" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSColumnViewTemplate" imagePosition="only" alignment="center" inset="2" id="zDW-51-dYR">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -323,13 +369,13 @@
                             <action selector="resetSplitViewWithSender:" target="-1" id="uzC-Uf-5HX"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="0E8E147C-3E51-4BEF-8BB5-349EB3011788" label="Info" paletteLabel="Info" toolTip="Toggle Info" image="NSIconViewTemplate" id="jPf-ee-uj7">
+                    <toolbarItem implicitItemIdentifier="0E8E147C-3E51-4BEF-8BB5-349EB3011788" label="Info" paletteLabel="Info" toolTip="Toggle Info" image="NSTouchBarGetInfoTemplate" id="jPf-ee-uj7">
                         <size key="minSize" width="22" height="22"/>
                         <size key="maxSize" width="22" height="22"/>
                         <button key="view" id="j0k-Jy-54n">
                             <rect key="frame" x="3" y="14" width="22" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSIconViewTemplate" imagePosition="only" alignment="center" inset="2" id="vsd-ex-ui3">
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTouchBarGetInfoTemplate" imagePosition="only" alignment="center" inset="2" id="vsd-ex-ui3">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -343,6 +389,8 @@
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="Sls-nu-ELU"/>
+                    <toolbarItem reference="sLm-7V-pQ1"/>
+                    <toolbarItem reference="iSc-9X-rS3"/>
                     <toolbarItem reference="0H3-Vz-8EI"/>
                     <toolbarItem reference="iUn-A5-ajP"/>
                     <toolbarItem reference="jPf-ee-uj7"/>
@@ -355,8 +403,11 @@
         </window>
     </objects>
     <resources>
-        <image name="NSColumnViewTemplate" width="16" height="10"/>
-        <image name="NSFlowViewTemplate" width="18" height="10"/>
-        <image name="NSIconViewTemplate" width="10" height="10"/>
+        <image name="NSColumnViewTemplate" width="24" height="18"/>
+        <image name="NSExitFullScreenTemplate" width="20" height="20"/>
+        <image name="NSQuickLookTemplate" width="26" height="17"/>
+        <image name="NSRefreshTemplate" width="18" height="21"/>
+        <image name="NSTouchBarGetInfoTemplate" width="20" height="20"/>
+        <image name="NSTouchBarRotateRightTemplate" width="19" height="21"/>
     </resources>
 </document>
