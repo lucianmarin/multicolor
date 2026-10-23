@@ -299,7 +299,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Format" id="GEO-Iw-cKr">
                         <items>
-                            <menuItem title="Initial Slit" keyEquivalent="i" id="qQ7-pb-DMK">
+                            <menuItem title="Initial Split" keyEquivalent="i" id="qQ7-pb-DMK">
                                 <connections>
                                     <action selector="resetSplitViewWithSender:" target="-1" id="tm5-7L-IfR"/>
                                 </connections>
