@@ -11,11 +11,24 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
+    private var windowController: Document?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         srand48(Int(Date().timeIntervalSince1970))
         installMenus()
+
+        let controller = Document(windowNibName: NSNib.Name("Document"))
+        windowController = controller
+        controller.showWindow(self)
+        controller.window?.makeKeyAndOrderFront(self)
+    }
+
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        if !flag {
+            windowController?.showWindow(self)
+            windowController?.window?.makeKeyAndOrderFront(self)
+        }
+        return true
     }
 
     private func installMenus() {

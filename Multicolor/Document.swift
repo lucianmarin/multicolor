@@ -32,6 +32,14 @@ struct OKLCHColor: Equatable {
         return norm <= span ? (minVal + norm) : (maxVal - (norm - span))
     }
 
+    static func wrap(_ value: Double, min minVal: Double, max maxVal: Double) -> Double {
+        let span = maxVal - minVal
+        guard span > 0 else { return minVal }
+        var norm = (value - minVal).truncatingRemainder(dividingBy: span)
+        if norm < 0 { norm += span }
+        return minVal + norm
+    }
+
     private static func srgbToLinear(_ x: Double) -> Double {
         return x <= 0.04045 ? (x / 12.92) : pow((x + 0.055) / 1.055, 2.4)
     }
@@ -185,35 +193,48 @@ enum HarmonyMode: Int, CaseIterable {
 
     /// Generates 5 harmonious colors anchored at `anchorIndex` with `anchorColor`.
     func generateScheme(anchorColor: NSColor, anchorIndex: Int, existingColors: [NSColor], lockedPanels: [Bool]) -> [NSColor] {
+        let srgbAnchor = anchorColor.usingColorSpace(.sRGB) ?? anchorColor
+        let anchorOKLCH = OKLCHColor.fromNSColor(srgbAnchor)
+        return generateScheme(
+            anchorOKLCH: anchorOKLCH,
+            anchorColor: srgbAnchor,
+            anchorIndex: anchorIndex,
+            existingColors: existingColors,
+            lockedPanels: lockedPanels
+        )
+    }
+
+    /// Generates 5 harmonious colors directly from an `OKLCHColor` anchor at `anchorIndex`.
+    func generateScheme(anchorOKLCH: OKLCHColor, anchorColor: NSColor? = nil, anchorIndex: Int, existingColors: [NSColor], lockedPanels: [Bool]) -> [NSColor] {
         let clampedAnchor = min(max(anchorIndex, 0), 4)
-        let anchorOKLCH = OKLCHColor.fromNSColor(anchorColor)
+        let resolvedAnchorColor = anchorColor ?? anchorOKLCH.toNSColor()
 
         if self == .freeform {
             var copy = existingColors
             if clampedAnchor < copy.count {
-                copy[clampedAnchor] = anchorColor.usingColorSpace(.sRGB) ?? anchorColor
+                copy[clampedAnchor] = resolvedAnchorColor
             }
             return copy
         }
 
-        // Ensure chromatic modes still generate rich hues even if the anchor is near-neutral
+        // Ensure chromatic modes still generate rich hues even if the anchor is near-neutral or gamut-clipped at extreme L
         let baseChroma: Double = {
             switch self {
             case .monochromatic, .shadesAndTints:
-                return anchorOKLCH.C
+                return anchorOKLCH.C < 0.015 ? anchorOKLCH.C : max(anchorOKLCH.C, 0.14)
             default:
-                return max(anchorOKLCH.C, 0.11)
+                return max(anchorOKLCH.C, 0.14)
             }
         }()
 
         var result: [NSColor] = []
         for idx in 0..<5 {
-            if idx == clampedAnchor {
-                result.append(anchorColor.usingColorSpace(.sRGB) ?? anchorColor)
-                continue
-            }
             if idx < lockedPanels.count && lockedPanels[idx] && idx < existingColors.count {
                 result.append(existingColors[idx])
+                continue
+            }
+            if idx == clampedAnchor {
+                result.append(resolvedAnchorColor)
                 continue
             }
 
@@ -233,18 +254,18 @@ enum HarmonyMode: Int, CaseIterable {
         case .goldenRatio:
             // Golden Angle (137.508°) rotation in perceptual OKLCH space with harmonic lightness & chroma envelope
             let h = OKLCHColor.normalizeHue(H0 + d * OKLCHColor.goldenAngle)
-            let lOffset = d * 0.105 + 0.035 * sin(d * OKLCHColor.goldenAngle * .pi / 180.0)
-            let l = OKLCHColor.bounce(L0 + lOffset, min: 0.18, max: 0.90)
+            let lOffset = d * 0.135 + 0.025 * sin(d * OKLCHColor.goldenAngle * .pi / 180.0)
+            let l = OKLCHColor.wrap(L0 + lOffset, min: 0.20, max: 0.88)
             // Parabolic midtone chroma curve so very light and very dark swatches stay clean and natural
             let midtoneFactor = 1.0 - 0.28 * pow((l - 0.58) / 0.42, 2.0)
             let c = max(0.035, baseChroma * midtoneFactor * (1.0 + 0.08 * cos(d * 1.1)))
             return OKLCHColor(L: l, C: c, H: h)
 
         case .analogous:
-            // Smooth 26° steps along the perceptual hue wheel with gentle lightness progression
-            let h = OKLCHColor.normalizeHue(H0 + d * 26.0)
-            let l = OKLCHColor.bounce(L0 + d * 0.075, min: 0.20, max: 0.88)
-            let c = max(0.03, baseChroma * (1.0 - 0.05 * abs(d)))
+            // Smooth 18° steps along the perceptual hue wheel with gentle lightness progression
+            let h = OKLCHColor.normalizeHue(H0 + d * 18.0)
+            let l = OKLCHColor.wrap(L0 + d * 0.11, min: 0.22, max: 0.87)
+            let c = max(0.03, baseChroma * (1.0 - 0.04 * abs(d)))
             return OKLCHColor(L: l, C: c, H: h)
 
         case .complementary:
@@ -255,9 +276,9 @@ enum HarmonyMode: Int, CaseIterable {
                  1: 0.0,    2: 180.0,  3: 180.0,  4: 180.0
             ]
             let lOffsets: [Int: Double] = [
-                -4: -0.22, -3: 0.16, -2: -0.10, -1: 0.15,
+                -4: 0.42, -3: 0.26, -2: 0.12, -1: -0.15,
                  0: 0.0,
-                 1: -0.15,  2: 0.10,  3: -0.16,  4: 0.22
+                 1: 0.15,  2: 0.30,  3: 0.45,  4: 0.60
             ]
             let cFactors: [Int: Double] = [
                 -4: 0.85, -3: 0.78, -2: 1.0, -1: 0.75,
@@ -265,7 +286,7 @@ enum HarmonyMode: Int, CaseIterable {
                  1: 0.82,  2: 1.0,  3: 0.78,  4: 0.85
             ]
             let h = OKLCHColor.normalizeHue(H0 + (hueOffsets[step] ?? 180.0))
-            let l = OKLCHColor.bounce(L0 + (lOffsets[step] ?? (d * 0.1)), min: 0.18, max: 0.90)
+            let l = OKLCHColor.wrap(L0 + (lOffsets[step] ?? (d * 0.14)), min: 0.20, max: 0.88)
             let c = max(0.03, baseChroma * (cFactors[step] ?? 0.9))
             return OKLCHColor(L: l, C: c, H: h)
 
@@ -277,13 +298,13 @@ enum HarmonyMode: Int, CaseIterable {
                  1: 150.0,  2: 210.0,  3: 0.0,    4: 150.0
             ]
             let lOffsets: [Int: Double] = [
-                -4: 0.18, -3: -0.14, -2: 0.08, -1: -0.16,
+                -4: 0.52, -3: 0.38, -2: 0.24, -1: -0.14,
                  0: 0.0,
-                 1: 0.10,  2: -0.08,  3: 0.16,  4: -0.18
+                 1: 0.13,  2: 0.27,  3: 0.41,  4: 0.55
             ]
             let h = OKLCHColor.normalizeHue(H0 + (hueOffsets[step] ?? 150.0))
-            let l = OKLCHColor.bounce(L0 + (lOffsets[step] ?? (d * 0.09)), min: 0.20, max: 0.89)
-            let c = max(0.035, baseChroma * (abs(step) == 3 ? 0.72 : 0.96))
+            let l = OKLCHColor.wrap(L0 + (lOffsets[step] ?? (d * 0.13)), min: 0.20, max: 0.88)
+            let c = max(0.035, baseChroma * (abs(step) == 3 ? 0.76 : 0.96))
             return OKLCHColor(L: l, C: c, H: h)
 
         case .triadic:
@@ -294,13 +315,13 @@ enum HarmonyMode: Int, CaseIterable {
                  1: 120.0,  2: 240.0,  3: 120.0,  4: 240.0
             ]
             let lOffsets: [Int: Double] = [
-                -4: 0.18, -3: -0.16, -2: -0.06, -1: 0.10,
+                -4: 0.52, -3: 0.38, -2: 0.24, -1: -0.14,
                  0: 0.0,
-                 1: -0.10,  2: 0.06,  3: 0.16,   4: -0.18
+                 1: 0.13,  2: 0.27,  3: 0.41,   4: 0.55
             ]
             let h = OKLCHColor.normalizeHue(H0 + (hueOffsets[step] ?? 120.0))
-            let l = OKLCHColor.bounce(L0 + (lOffsets[step] ?? (d * 0.1)), min: 0.20, max: 0.88)
-            let c = max(0.035, baseChroma * (abs(step) >= 3 ? 0.78 : 0.95))
+            let l = OKLCHColor.wrap(L0 + (lOffsets[step] ?? (d * 0.13)), min: 0.20, max: 0.88)
+            let c = max(0.035, baseChroma * (abs(step) >= 3 ? 0.80 : 0.95))
             return OKLCHColor(L: l, C: c, H: h)
 
         case .tetradic:
@@ -311,41 +332,41 @@ enum HarmonyMode: Int, CaseIterable {
                  1: 60.0,   2: 180.0,  3: 240.0, 4: 0.0
             ]
             let lOffsets: [Int: Double] = [
-                -4: -0.14, -3: 0.12, -2: -0.08, -1: 0.16,
+                -4: 0.52, -3: 0.38, -2: 0.24, -1: -0.14,
                  0: 0.0,
-                 1: 0.09,   2: -0.11, 3: 0.15,   4: -0.18
+                 1: 0.13,   2: 0.27,  3: 0.41,   4: 0.55
             ]
             let h = OKLCHColor.normalizeHue(H0 + (hueOffsets[step] ?? 90.0))
-            let l = OKLCHColor.bounce(L0 + (lOffsets[step] ?? (d * 0.09)), min: 0.20, max: 0.88)
-            let c = max(0.035, baseChroma * (abs(step) == 4 ? 0.72 : 0.92))
+            let l = OKLCHColor.wrap(L0 + (lOffsets[step] ?? (d * 0.13)), min: 0.20, max: 0.88)
+            let c = max(0.035, baseChroma * (abs(step) == 4 ? 0.76 : 0.94))
             return OKLCHColor(L: l, C: c, H: h)
 
         case .pentadic:
             // Equidistant 72° 5-point perceptual wheel
             let h = OKLCHColor.normalizeHue(H0 + d * 72.0)
-            let l = OKLCHColor.bounce(L0 + d * 0.065, min: 0.22, max: 0.86)
+            let l = OKLCHColor.wrap(L0 + d * 0.12, min: 0.22, max: 0.86)
             let c = max(0.04, baseChroma * 0.95)
             return OKLCHColor(L: l, C: c, H: h)
 
         case .cubehelix:
             // Helical trajectory through OKLCH (simultaneous hue rotation + monotonic lightness ramp)
             let h = OKLCHColor.normalizeHue(H0 + d * 52.0)
-            let l = OKLCHColor.bounce(L0 + d * 0.13, min: 0.16, max: 0.90)
+            let l = OKLCHColor.wrap(L0 + d * 0.145, min: 0.18, max: 0.90)
             let helixEnvelope = max(0.35, sin(.pi * min(max(l, 0.08), 0.92)))
             let c = max(0.03, baseChroma * helixEnvelope)
             return OKLCHColor(L: l, C: c, H: h)
 
         case .monochromatic:
-            // Constant perceptual hue, natural bell-shaped chroma across lightness scale
-            let l = OKLCHColor.bounce(L0 + d * 0.14, min: 0.15, max: 0.92)
+            // Constant perceptual hue, natural bell-shaped chroma across 5 distinct lightness steps
+            let l = OKLCHColor.wrap(L0 + d * 0.15, min: 0.16, max: 0.91)
             let bell = 1.0 - 0.42 * pow((l - 0.55) / 0.45, 2.0)
             let c = max(0.0, baseChroma * max(0.25, bell))
             return OKLCHColor(L: l, C: c, H: H0)
 
         case .shadesAndTints:
-            // Constant hue & chroma-preserving lightness progression
-            let l = OKLCHColor.bounce(L0 + d * 0.125, min: 0.14, max: 0.93)
-            let c = max(0.0, baseChroma * (1.0 - 0.08 * abs(d)))
+            // Constant hue & chroma-preserving lightness progression across 5 distinct steps
+            let l = OKLCHColor.wrap(L0 + d * 0.15, min: 0.16, max: 0.91)
+            let c = max(0.0, baseChroma * (1.0 - 0.06 * abs(d)))
             return OKLCHColor(L: l, C: c, H: H0)
 
         case .freeform:
@@ -355,7 +376,7 @@ enum HarmonyMode: Int, CaseIterable {
 }
 
 
-class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
+class Document: NSWindowController, NSToolbarDelegate, NSWindowDelegate {
     @IBOutlet var mainWindow: NSWindow!
     @IBOutlet weak var splitView: NSSplitView!
     
@@ -400,7 +421,6 @@ class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
     private var lockedPanels: [Bool] = [false, false, false, false, false]
     private var lockButtons: [NSButton] = []
     private var isUpdatingColors: Bool = false
-    private var loadedColorsFromData: [NSColor]?
     private var harmonyPopUpButton: NSPopUpButton?
 
     private static let harmonyToolbarItemID = NSToolbarItem.Identifier("MulticolorHarmonyToolbarItem")
@@ -494,7 +514,6 @@ class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
 
         let avgTitle = "\(averageLuminance())% — \(harmonyMode.title)"
         view.window?.title = avgTitle
-        self.displayName = avgTitle
     }
 
     func refreshAllPanels() {
@@ -527,7 +546,7 @@ class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
         let oldHarmony = harmonyMode
         let oldAnchor = anchorIndex
 
-        if registerUndo, let undo = undoManager {
+        if registerUndo, let undo = window?.undoManager {
             undo.registerUndo(withTarget: self) { target in
                 target.applyColors(oldColors, newHarmony: oldHarmony, newAnchor: oldAnchor, registerUndo: true)
             }
@@ -549,8 +568,17 @@ class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
         isUpdatingColors = false
     }
 
+    private func syncHarmonyModeFromToolbar() {
+        if let popUp = harmonyPopUpButton,
+           let selectedMode = HarmonyMode(rawValue: popUp.selectedTag()),
+           selectedMode != harmonyMode {
+            harmonyMode = selectedMode
+        }
+    }
+
     func applyHarmony(fromAnchorIndex index: Int, registerUndo: Bool = true) {
         guard !isUpdatingColors else { return }
+        syncHarmonyModeFromToolbar()
         let clampedIndex = min(max(index, 0), 4)
         anchorIndex = clampedIndex
         let wells = colorWells
@@ -564,11 +592,42 @@ class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
         applyColors(generated, newHarmony: harmonyMode, newAnchor: clampedIndex, registerUndo: registerUndo)
     }
 
-    func randomOKLCHSeedColor() -> NSColor {
-        let L = 0.35 + drand48() * 0.48
-        let C = 0.09 + drand48() * 0.16
+    func randomOKLCHSeed(for mode: HarmonyMode? = nil) -> OKLCHColor {
+        let activeMode = mode ?? harmonyMode
+        let L: Double
+        switch activeMode {
+        case .monochromatic, .shadesAndTints, .cubehelix:
+            L = 0.20 + drand48() * 0.12
+        case .analogous:
+            L = 0.28 + drand48() * 0.14
+        default:
+            L = 0.38 + drand48() * 0.34
+        }
+        let C = 0.13 + drand48() * 0.13
         let H = drand48() * 360.0
-        return OKLCHColor(L: L, C: C, H: H).toNSColor()
+        return OKLCHColor(L: L, C: C, H: H)
+    }
+
+    func randomOKLCHSeedColor(for mode: HarmonyMode? = nil) -> NSColor {
+        return randomOKLCHSeed(for: mode).toNSColor()
+    }
+
+    private func randomizePanel(at index: Int) {
+        syncHarmonyModeFromToolbar()
+        var existing = currentColors()
+        let seedOKLCH = randomOKLCHSeed(for: harmonyMode)
+        if harmonyMode == .freeform {
+            existing[index] = seedOKLCH.toNSColor()
+            applyColors(existing, newHarmony: harmonyMode, newAnchor: index)
+        } else {
+            let generated = harmonyMode.generateScheme(
+                anchorOKLCH: seedOKLCH,
+                anchorIndex: index,
+                existingColors: existing,
+                lockedPanels: lockedPanels
+            )
+            applyColors(generated, newHarmony: harmonyMode, newAnchor: index)
+        }
     }
     
     func setButtonsState(state: Bool) {
@@ -608,44 +667,57 @@ class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
     }
     
     @IBAction func randomFirst(sender: AnyObject) {
-        firstCW.color = randomOKLCHSeedColor()
-        applyHarmony(fromAnchorIndex: 0)
+        randomizePanel(at: 0)
     }
     
     @IBAction func randomSecond(sender: AnyObject) {
-        secondCW.color = randomOKLCHSeedColor()
-        applyHarmony(fromAnchorIndex: 1)
+        randomizePanel(at: 1)
     }
     
     @IBAction func randomThird(sender: AnyObject) {
-        thirdCW.color = randomOKLCHSeedColor()
-        applyHarmony(fromAnchorIndex: 2)
+        randomizePanel(at: 2)
     }
     
     @IBAction func randomFourth(sender: AnyObject) {
-        fourthCW.color = randomOKLCHSeedColor()
-        applyHarmony(fromAnchorIndex: 3)
+        randomizePanel(at: 3)
     }
     
     @IBAction func randomFifth(sender: AnyObject) {
-        fifthCW.color = randomOKLCHSeedColor()
-        applyHarmony(fromAnchorIndex: 4)
+        randomizePanel(at: 4)
     }
 
     @IBAction func randomColors(sender: AnyObject) {
-        // Choose an anchor: if a panel is locked, harmonize around the first locked panel; otherwise generate a new seed
-        let seedIndex = lockedPanels.firstIndex(of: true) ?? anchorIndex
+        syncHarmonyModeFromToolbar()
         let existing = currentColors()
-        let seedColor: NSColor
-        if lockedPanels[seedIndex] {
-            seedColor = existing[seedIndex]
-        } else {
-            seedColor = randomOKLCHSeedColor()
+
+        if harmonyMode == .freeform {
+            let generated = (0..<5).map { idx in
+                lockedPanels[idx] ? existing[idx] : randomOKLCHSeedColor(for: .freeform)
+            }
+            applyColors(generated, newHarmony: .freeform, newAnchor: anchorIndex)
+            return
         }
 
-        let effectiveMode: HarmonyMode = (harmonyMode == .freeform) ? .goldenRatio : harmonyMode
-        let generated = effectiveMode.generateScheme(
-            anchorColor: seedColor,
+        if let lockedIndex = lockedPanels.firstIndex(of: true) {
+            let lockedOKLCH = OKLCHColor.fromNSColor(existing[lockedIndex])
+            let jitterL = OKLCHColor.wrap(lockedOKLCH.L + 0.12 + drand48() * 0.45, min: 0.20, max: 0.84)
+            let jitterC = max(0.13, min(0.26, lockedOKLCH.C + (drand48() - 0.5) * 0.10))
+            let virtualSeed = OKLCHColor(L: jitterL, C: jitterC, H: lockedOKLCH.H)
+            let virtualAnchor = Int(drand48() * 5.0) % 5
+            let generated = harmonyMode.generateScheme(
+                anchorOKLCH: virtualSeed,
+                anchorIndex: virtualAnchor,
+                existingColors: existing,
+                lockedPanels: lockedPanels
+            )
+            applyColors(generated, newHarmony: harmonyMode, newAnchor: lockedIndex)
+            return
+        }
+
+        let seedIndex = 0
+        let seedOKLCH = randomOKLCHSeed(for: harmonyMode)
+        let generated = harmonyMode.generateScheme(
+            anchorOKLCH: seedOKLCH,
             anchorIndex: seedIndex,
             existingColors: existing,
             lockedPanels: lockedPanels
@@ -657,16 +729,29 @@ class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
 
     @objc func selectHarmonyMode(_ sender: AnyObject) {
         let rawTag: Int?
-        if let menuItem = sender as? NSMenuItem {
+        if let popUp = sender as? NSPopUpButton {
+            rawTag = popUp.selectedTag()
+        } else if let toolbarItem = sender as? NSToolbarItem, let popUp = toolbarItem.view as? NSPopUpButton {
+            rawTag = popUp.selectedTag()
+        } else if let menuItem = sender as? NSMenuItem {
             rawTag = menuItem.tag
-        } else if let popUp = sender as? NSPopUpButton {
+        } else if let popUp = harmonyPopUpButton {
             rawTag = popUp.selectedTag()
         } else {
             rawTag = nil
         }
         guard let tag = rawTag, let mode = HarmonyMode(rawValue: tag) else { return }
         harmonyMode = mode
-        applyHarmony(fromAnchorIndex: anchorIndex)
+        harmonyPopUpButton?.selectItem(withTag: mode.rawValue)
+        let existing = currentColors()
+        let anchorColor = srgbColor(colorWells[anchorIndex].color)
+        let generated = mode.generateScheme(
+            anchorColor: anchorColor,
+            anchorIndex: anchorIndex,
+            existingColors: existing,
+            lockedPanels: lockedPanels
+        )
+        applyColors(generated, newHarmony: mode, newAnchor: anchorIndex)
     }
 
     @objc func toggleLockPanel(_ sender: NSButton) {
@@ -996,7 +1081,7 @@ class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
             menuItem.state = (menuItem.tag == harmonyMode.rawValue) ? .on : .off
             return true
         }
-        return super.validateMenuItem(menuItem)
+        return true
     }
 
     private func saveWindowFrame() {
@@ -1016,9 +1101,9 @@ class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
         saveWindowFrame()
     }
 
-    override func windowControllerDidLoadNib(_ windowController: NSWindowController) {
-        super.windowControllerDidLoadNib(windowController)
-        windowController.shouldCascadeWindows = false
+    override func windowDidLoad() {
+        super.windowDidLoad()
+        shouldCascadeWindows = false
         NSColorPanel.shared.isContinuous = true
         NSColorPanel.shared.showsAlpha = false
         mainWindow.titleVisibility = .hidden
@@ -1031,73 +1116,15 @@ class Document: NSDocument, NSToolbarDelegate, NSWindowDelegate {
             initialFrame.size = NSSize(width: 640, height: 480)
             mainWindow.setFrame(initialFrame, display: false)
             mainWindow.center()
-            resetSplitView(sender: windowController)
+            resetSplitView(sender: self)
             saveWindowFrame()
         }
 
         setupLockButtons()
         setupToolbarControls()
 
-        if let saved = loadedColorsFromData, saved.count == 5 {
-            applyColors(saved, registerUndo: false)
-            loadedColorsFromData = nil
-        } else {
-            randomColors(sender: windowController)
-            undoManager?.removeAllActions()
-        }
-    }
-
-    override init() {
-        super.init()
-    }
-
-    override var isDocumentEdited: Bool {
-        return false
-    }
-
-    override class var autosavesInPlace: Bool {
-        return true
-    }
-
-    override var windowNibName: NSNib.Name? {
-        return NSNib.Name("Document")
-    }
-
-    override func data(ofType typeName: String) throws -> Data {
-        let payload: [String: Any] = [
-            "harmonyMode": harmonyMode.rawValue,
-            "anchorIndex": anchorIndex,
-            "colors": currentColors().map { hexString(for: $0, includeHash: false) }
-        ]
-        return try JSONSerialization.data(withJSONObject: payload, options: [.prettyPrinted])
-    }
-
-    override func read(from data: Data, ofType typeName: String) throws {
-        guard let obj = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let hexList = obj["colors"] as? [String],
-              hexList.count == 5 else {
-            throw NSError(domain: NSOSStatusErrorDomain, code: paramErr, userInfo: nil)
-        }
-        if let rawMode = obj["harmonyMode"] as? Int, let mode = HarmonyMode(rawValue: rawMode) {
-            harmonyMode = mode
-        }
-        if let savedAnchor = obj["anchorIndex"] as? Int {
-            anchorIndex = min(max(savedAnchor, 0), 4)
-        }
-        var parsed: [NSColor] = []
-        for hex in hexList {
-            let clean = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-            var value: UInt64 = 0
-            Scanner(string: clean).scanHexInt64(&value)
-            let r = CGFloat((value >> 16) & 0xFF) / 255.0
-            let g = CGFloat((value >> 8) & 0xFF) / 255.0
-            let b = CGFloat(value & 0xFF) / 255.0
-            parsed.append(NSColor(srgbRed: r, green: g, blue: b, alpha: 1.0))
-        }
-        loadedColorsFromData = parsed
-        if firstCW != nil {
-            applyColors(parsed, registerUndo: false)
-        }
+        randomColors(sender: self)
+        window?.undoManager?.removeAllActions()
     }
 }
 

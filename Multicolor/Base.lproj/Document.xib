@@ -293,22 +293,7 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="4EC5CF5E-D4D4-41C5-9EE6-8C49987B3B6F" displayMode="iconOnly" sizeMode="small" id="9lk-Df-0f1">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="AE601775-6EC0-445B-9B05-837BFBEDB8F0" label="New" paletteLabel="New" toolTip="New Scheme" image="NSAddTemplate" id="8je-pB-EBU">
-                        <size key="minSize" width="22" height="22"/>
-                        <size key="maxSize" width="22" height="22"/>
-                        <button key="view" id="spT-Cn-Q4o">
-                            <rect key="frame" x="5" y="14" width="22" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" inset="2" id="lg1-bb-Dwb">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="newDocument:" target="-1" id="ziZ-QV-iiE"/>
-                        </connections>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="41D400A9-063B-4867-818B-E2D51F8B0883" label="Random" paletteLabel="Random" toolTip="Random Colors" image="NSFlowViewTemplate" id="0H3-Vz-8EI">
+                    <toolbarItem implicitItemIdentifier="41D400A9-063B-4867-818B-E2D51F8B0883" label="Random Scheme" paletteLabel="Random Scheme" toolTip="Random Scheme" image="NSFlowViewTemplate" id="0H3-Vz-8EI">
                         <size key="minSize" width="22" height="22"/>
                         <size key="maxSize" width="22" height="22"/>
                         <button key="view" id="utF-hE-cKa">
@@ -323,7 +308,7 @@
                             <action selector="randomColorsWithSender:" target="-1" id="5CI-Wo-ixn"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="7D4F9B90-BD2D-404F-848E-17651AA79026" label="Split" paletteLabel="Split" toolTip="Initial Split" image="NSColumnViewTemplate" id="iUn-A5-ajP">
+                    <toolbarItem implicitItemIdentifier="7D4F9B90-BD2D-404F-848E-17651AA79026" label="Equal Split" paletteLabel="Equal Split" toolTip="Equal Split" image="NSColumnViewTemplate" id="iUn-A5-ajP">
                         <size key="minSize" width="22" height="22"/>
                         <size key="maxSize" width="22" height="22"/>
                         <button key="view" id="Mj9-ml-xnH">
@@ -358,7 +343,6 @@
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="Sls-nu-ELU"/>
-                    <toolbarItem reference="8je-pB-EBU"/>
                     <toolbarItem reference="0H3-Vz-8EI"/>
                     <toolbarItem reference="iUn-A5-ajP"/>
                     <toolbarItem reference="jPf-ee-uj7"/>
@@ -371,7 +355,6 @@
         </window>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSColumnViewTemplate" width="16" height="10"/>
         <image name="NSFlowViewTemplate" width="18" height="10"/>
         <image name="NSIconViewTemplate" width="10" height="10"/>
