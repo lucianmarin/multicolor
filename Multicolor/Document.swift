@@ -74,6 +74,7 @@ class Document: NSDocument {
     }
 
     func setColor(view: NSView, cw: NSColorWell, inline: NSCell, recessed: NSCell) {
+        view.wantsLayer = true
         view.layer?.backgroundColor = cw.color.cgColor
         inline.title = getLuminance(color: cw.color).description + "%"
         let red = Int(round(cw.color.redComponent * 255))
